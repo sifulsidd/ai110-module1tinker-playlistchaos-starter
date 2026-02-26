@@ -168,7 +168,9 @@ def search_songs(
 
     for song in songs:
         value = str(song.get(field, "")).lower()
-        if value and value in q:
+        # partial substring match instead of requiring the full field to appear in
+        # the query.  this lets "jo" match "john" or "rock" match "rockstar".
+        if value and q in value:
             filtered.append(song)
 
     return filtered
